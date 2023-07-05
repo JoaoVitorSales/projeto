@@ -1,42 +1,44 @@
 <div class="cars cars-list">
     <div class="cars-informations">
-        <img src="https://coolclassicclub.com/wp-content/uploads/2021/01/ford-Mustang-rood-.jpg" alt="temp">
+        <img src="{{car.cover.url}}" alt="temp">
     </div>
     <div class="cars-title-container">
-        <h1 align="center">Mustang</h1>
+        <h1 align="center">{{ car.title }}</h1>
     </div>
     <div class="cars-company">
         <span class="cars-company-item">
             <i class="fas fa-user"></i>
-            Ford
+            {{ car.author.primary_name }} {{ car.author.last_name }}
         </span>
         <span class="cars-company-item">
             <i class="fas fa-calendar-alt"></i>
-            30/06/1967
+            {{ car.date|date:"d/m/Y" }} às {{ car.date|date:"H:i" }}
         </span>
         <span class="cars-company-item">
             <a href="/cars/category/Store/">
                 <i class="fas fa-layer-group"></i>
-                <span>Ford Store</span>
+                <span>{{ car.shop.name }}</span>
             </a>
         </span>
     </div>
     <div class="cars-content">
-        All you need is an open road, low gears, high revs and a V8 Mustang Convertible. – Ken Miles
+        {{ car.description }}
     </div>
 
     <div class="cars-value">
         <div class="cars-meta">
             <h3 class="cars-meta-title"><i class="fa-solid fa-dollar-sign"></i> Value: </h3>
             <div class="cars-meta-text">
-                US$200.000
+                US${{ car.value }}
             </div>
         </div>
     </div>
+    {% if is_detail_page is not True %}
     <footer class="cars-footer">
         <a class="cars-read-more button button-dark button-full-width" href="/cars/3/">
             <i class="fas fa-eye"></i>
             <span>ver mais...</span>
         </a>
     </footer>
+    {% endif %}
 </div>

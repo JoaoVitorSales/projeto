@@ -1,15 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from utils.cars.fabric import fabric_car
 
 
 def home(request):
     return render(request, 'local/pages/home.html', context={
-        'name': ' João Vitor'
+        'cars': [fabric_car() for _ in range(10)],
     })
  
  
 def cars(request, id):
     return render(request, 'local/pages/cars-view.html', context={
-        'name': ' João Vitor'
+        'car': fabric_car(),
+        'is_detail_page': True,
     })
 
