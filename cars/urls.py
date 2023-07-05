@@ -1,7 +1,9 @@
 from django.urls import path
-from cars.views import home
+
+from . import views
 
 urlpatterns = [
-    path('', home),
-    path('home/', home),
+    path('', views.home),
+    path('home/', views.home),
+    path('cars/<int:id>/', views.cars)
 ]
