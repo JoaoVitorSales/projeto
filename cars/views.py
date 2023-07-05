@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return render(request, 'local/home.html',context={
-        'name' : ' João Vitor'
+    return render(request, 'local/pages/home.html', context={
+        'name': ' João Vitor'
     })
 
