@@ -21,7 +21,7 @@ def fabric_car():
             'primary_name': fake.first_name(),
             'last_name': fake.last_name(),
         },
-        'shop': {
+        'Shop': {
             'name': fake.word()
         },
         'cover': {
