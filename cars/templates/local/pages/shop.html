@@ -1,13 +1,9 @@
 {% extends 'Global/base.html' %}
-{% block title %}HOME{% endblock title %}
+{% block title %} {{ title }}{% endblock title %}
 {% block content%}
         <div class="main-contant main-contant-list container">
            {% for car in cars %}
                 {% include 'local/partials/cars.html' %}
-           {% empyt %}    
-                <div class="center m-y">
-                        NO CARS FOUND 
-                </div>
            {% endfor %}
         </div>
 {% endblock  %}

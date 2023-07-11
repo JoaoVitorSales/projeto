@@ -9,7 +9,7 @@ class Shop(models.Model):
         return self.name
 
 
-class cars(models.Model):
+class Cars(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100)
     slug = models.SlugField()
@@ -19,10 +19,14 @@ class cars(models.Model):
     value_unit = models.CharField(max_length=8)
     description = models.CharField(max_length=2000)
     is_published = models.BooleanField(default=False)
-    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    cover = models.ImageField(
+        upload_to='recipes/covers/%Y/%m/%d/', blank=True, default='')
     shop = models.ForeignKey(
-        Shop, on_delete=models.SET_NULL, null=True
+        Shop, on_delete=models.SET_NULL, null=True, blank=True, default=None
     )
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
     )
+
+    def __str__(self):
+        return self.title

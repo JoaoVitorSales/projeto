@@ -1,9 +1,12 @@
 from django.contrib import admin
-from .models import Shop
+from .models import Shop, Cars
 
 
-class carsAdmin(admin.ModelAdmin): 
+@admin.register(Shop)
+class shopAdmin(admin.ModelAdmin):
     ...
 
 
-admin.site.register(Shop, carsAdmin)
+@admin.register(Cars)
+class carsAdmin(admin.ModelAdmin):
+    ...

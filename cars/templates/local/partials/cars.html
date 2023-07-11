@@ -1,48 +1,53 @@
 <div class="cars cars-list">
-    <div class="cars-informations">
-        <a href="{% url 'car:cars' car.id%}">
-            <img src="{{car.cover.url}}" alt="temp">
-        </a>
-    </div>
+    {% if car.cover %}
+        <div class="cars-informations">
+            <a href="{% url 'car:cars' car.id%}">
+                <img src="{{car.cover.url}}" alt="temp">
+            </a>
+        </div>
+    {% endif %}
     <div class="cars-title-container">
         <a href="{% url 'car:cars' car.id%}">
             <h1 align="center">{{ car.title }}</h1>
         </a>    
     </div>
     <div class="cars-company">
-        <span class="cars-company-item">
-            <i class="fas fa-user"></i>
-            {{ car.author.primary_name }} {{ car.author.last_name }}
-        </span>
+        {% if car.author is not None %}
+            <span class="cars-company-item">
+                <i class="fas fa-user"></i>
+                {{ car.author.first_name }} {{ car.author.last_name }}
+            </span>
+        {% endif %}
         <span class="cars-company-item">
             <i class="fas fa-calendar-alt"></i>
-            {{ car.date|date:"d/m/Y" }} às {{ car.date|date:"H:i" }}
+            {{ car.date|date:"d/m/Y"  }}
         </span>
-        <span class="cars-company-item">
-            <a href="/cars/category/Store/">
-                <i class="fas fa-layer-group"></i>
-                <span>{{ car.shop.name }}</span>
-            </a>
-        </span>
+        {% if car.shop is not None %}
+            <span class="car-company-item">
+                <a href="{% url 'car:Shop' car.shop.id %}">
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ car.shop.name }}</span>
+                </a>
+            </span>
+        {% endif %}
     </div>
     <div class="cars-content">
         {{ car.description }}
     </div>
-
     <div class="cars-value">
         <div class="cars-meta">
             <h3 class="cars-meta-title"><i class="fa-solid fa-dollar-sign"></i> Value: </h3>
             <div class="cars-meta-text">
-                US${{ car.value }}
+                US${{ car.value_unit }}
             </div>
         </div>
     </div>
     {% if is_detail_page is not True %}
-    <footer class="cars-footer">
-        <a class="cars-read-more button button-dark button-full-width" href="{%url 'car:cars' car.id%}">
-            <i class="fas fa-eye"></i>
-            <span>ver mais...</span>
-        </a>
-    </footer>
+        <footer class="cars-footer">
+            <a class="cars-read-more button button-dark button-full-width" href="{% url 'car:cars' car.id %}">
+                <i class="fas fa-eye"></i>
+                <span>ver mais...</span>
+            </a>
+        </footer>
     {% endif %}
 </div>
