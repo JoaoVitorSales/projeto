@@ -1,10 +1,10 @@
 {
     "workbench.colorTheme": "OM Theme (Default Dracula Italic)",
     "window.zoomLevel": 0,
-    "python.languageServer": "Pylance", // ms-python.vscode-pylance
-    "python.testing.unittestEnabled": false, // ms-python.python
+    "python.languageServer": "Pylance",
+    "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": [], // -x to bail
+    "python.testing.pytestArgs": [],
     "python.linting.flake8Enabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.pylintArgs": [
@@ -14,7 +14,7 @@
     "python.formatting.autopep8Args": ["--indent-size=4"],
     "python.defaultInterpreterPath": "venv/bin/python",
     "[python]": {
-      "editor.defaultFormatter": "ms-python.python", // ms-python.python
+      "editor.defaultFormatter": "ms-python.autopep8",
       "editor.tabSize": 4,
       "editor.insertSpaces": true,
       "editor.formatOnSave": true,
@@ -47,14 +47,14 @@
       "*.xml": "html",
       "*.svg": "html",
       "*.html": "html",
-      "django-html": "html", // batisteo.vscode-django
+      "django-html": "html",
       "**/*.html": "html",
       "**/templates/**/*.html": "django-html",
       "**/base_templates/**/*.html": "django-html",
       "**/requirements{/**,*}.{txt,in}": "pip-requirements"
     },
     "emmet.includeLanguages": {
-      "django-html": "html", // batisteo.vscode-django
+      "django-html": "html",
       "javascript": "javascriptreact",
       "typescript": "typescriptreact"
     },
@@ -62,5 +62,6 @@
     "git.enableSmartCommit": true,
     "explorer.confirmDelete": false,
     "git.confirmSync": false,
-    "explorer.compactFolders": false
+    "explorer.compactFolders": false,
+    "python.formatting.provider": "none"
   }

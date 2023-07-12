@@ -32,7 +32,11 @@
         {% endif %}
     </div>
     <div class="cars-content">
-        {{ car.description }}
+        {% if  is_detail_page is not True%}
+            {{ car.details }}
+        {% else%}
+            {{ car.description }} 
+        {% endif %}
     </div>
     <div class="cars-value">
         <div class="cars-meta">
