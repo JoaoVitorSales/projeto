@@ -26,3 +26,7 @@ def Cars_detail(request, id):
         'car': carro,
         'is_detail_page': True,
     })
+
+
+def search(request):
+    return render(request, 'local/pages/search.html')

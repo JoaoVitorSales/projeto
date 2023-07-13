@@ -29,3 +29,9 @@ class CarsModelTest(CarsViewTest):
     def test_if_is_published_was_false(self):
         cars = self.make_models_not_default()
         self.assertFalse(cars.is_published)
+
+    def test_cars_string_represetarion(self):
+        self.car.title = 'Testing Represetation'
+        self.car.full_clean()
+        self.car.save()
+        self.assertEqual(str(self.car), 'Testing Represetation')

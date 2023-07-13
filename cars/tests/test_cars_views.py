@@ -89,3 +89,13 @@ class ResolveURLsTest(CarsViewTest):
         response = self.client.get(
             reverse('car:Shop', kwargs={'shop_id': recipe.shop.id}))
         self.assertEqual(404, response.status_code)
+
+    # Search
+
+    def test_cars_search_view_is_valid(self):
+        response = resolve(reverse('car:search'))
+        self.assertIs(response.func, views.search)
+
+    def test_cars_search_loads_template_is_correct(self):
+        response = self.client.get(reverse('car:search'))
+        self.assertTemplateUsed(response, 'local/pages/search.html')

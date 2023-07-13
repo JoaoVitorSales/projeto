@@ -12,7 +12,7 @@ class Shop(models.Model):
 class Cars(models.Model):
     title = models.CharField(max_length=30)
     details = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     date = models.DateField(auto_now_add=True)
     uptdate_date = models.DateField(auto_now=True)
     value = models.IntegerField
