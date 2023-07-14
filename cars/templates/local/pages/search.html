@@ -1,0 +1,13 @@
+{% extends 'Global/base.html' %}
+{% block title %}{{title_search}}{% endblock title %}
+{% block content%}
+        <div class="main-contant main-contant-list container">
+           {% for car in cars %}
+                {% include 'local/partials/cars.html' %}
+           {% empty %}   
+                <div class="center m-y">
+                       <h1> NO CARS FOUND </h1>
+                </div>
+           {% endfor %}
+        </div>
+{% endblock  %}

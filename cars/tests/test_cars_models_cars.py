@@ -13,7 +13,7 @@ class CarsModelTest(CarsViewTest):
                    author=self.make_user(username='Gabigol'),
                    title='car Title',
                    details='car',
-                   slug='car-slug',
+                   slug='ford-mustang',
                    value_unit='100',
                    description='car Description')
         self.car.full_clean()

@@ -1,5 +1,7 @@
+from django.http import Http404
 from django.shortcuts import get_list_or_404, render
 from .models import Cars
+from django.db.models import Q
 
 
 def home(request):
@@ -29,4 +31,19 @@ def Cars_detail(request, id):
 
 
 def search(request):
-    return render(request, 'local/pages/search.html')
+    url_search = request.GET.get('q', '').strip()
+
+    if not url_search:
+        raise Http404()
+
+    cars = Cars.objects.filter(Q(
+        Q(title__icontains=url_search) |
+        Q(details__icontains=url_search)
+    ), is_published=True
+    ).order_by('id')
+
+    return render(request, 'local/pages/search.html', {
+        'title_search': f'user search for "{url_search}" |',
+        'url_search': url_search,
+        'cars': cars,
+    })
