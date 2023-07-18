@@ -3,7 +3,7 @@ from cars import views
 from .test_cars_base import CarsViewTest
 
 
-class ResolveURLsTest(CarsViewTest):
+class RecipeHomeViewsTest(CarsViewTest):
 
     def tearDown(self) -> None:
         return super().tearDown()

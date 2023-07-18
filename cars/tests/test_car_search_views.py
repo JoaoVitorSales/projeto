@@ -3,10 +3,7 @@ from cars import views
 from .test_cars_base import CarsViewTest
 
 
-class ResolveURLsTest(CarsViewTest):
-    def tearDown(self) -> None:
-        return super().tearDown()
-
+class RecipeSearchTest(CarsViewTest):
     def test_cars_search_view_is_valid(self):
         response = resolve(reverse('car:search'))
         self.assertIs(response.func, views.search)
@@ -37,8 +34,8 @@ class ResolveURLsTest(CarsViewTest):
         )
 
         search_url = reverse('car:search')
-        response1 = self.client.get(f'{search_url} ?q={title1}')
-        response2 = self.client.get(f'{search_url} ?q={title2}')
+        response1 = self.client.get(f'{search_url}?q={title1}')
+        response2 = self.client.get(f'{search_url}?q={title2}')
 
         self.assertIn(cars1, response1.context['cars'])
         self.assertIn(cars2, response2.context['cars'])

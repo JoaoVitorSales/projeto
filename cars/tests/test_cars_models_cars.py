@@ -3,7 +3,7 @@ from .test_cars_base import CarsViewTest, Cars
 from django.core.exceptions import ValidationError
 
 
-class CarsModelTest(CarsViewTest):
+class CarsModelCarTest(CarsViewTest):
     def setUp(self) -> None:
         self.car = self.make_car()
         return super().setUp()

@@ -2,7 +2,7 @@ from .test_cars_base import CarsViewTest
 from django.core.exceptions import ValidationError
 
 
-class CarsModelTest(CarsViewTest):
+class CarsModelShopTest(CarsViewTest):
     def setUp(self) -> None:
         self.shop = self.make_shop(
             name='Ferrari'

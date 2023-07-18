@@ -3,7 +3,7 @@ from cars import views
 from .test_cars_base import CarsViewTest
 
 
-class ResolveURLsTest(CarsViewTest):
+class RecipeShopViewsTest(CarsViewTest):
 
     def test_cars_shop_view_is_valid(self):
         view = resolve(reverse('car:Shop', kwargs={'shop_id': 1}))
@@ -22,7 +22,7 @@ class ResolveURLsTest(CarsViewTest):
         self.assertIn('this is shop page test', content)
 
     def test_car_shop_template_no_loads_cars(self):
-        recipe = self.make_car(is_published=False)
+        car = self.make_car(is_published=False)
         response = self.client.get(
-            reverse('car:Shop', kwargs={'shop_id': recipe.shop.id}))
+            reverse('car:Shop', kwargs={'shop_id': car.shop.id}))
         self.assertEqual(404, response.status_code)

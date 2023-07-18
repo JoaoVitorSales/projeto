@@ -21,11 +21,11 @@ def Shop(request, shop_id):
 
 
 def Cars_detail(request, id):
-    carro = Cars.objects.filter(
+    car = Cars.objects.filter(
         pk=id, is_published=True).order_by('-id').first()
 
-    return render(request, 'local/pages/cars-view.html', context={
-        'car': carro,
+    return render(request, 'local/pages/cars_view.html', context={
+        'cars': car,
         'is_detail_page': True,
     })
 
@@ -40,7 +40,7 @@ def search(request):
         Q(title__icontains=url_search) |
         Q(details__icontains=url_search)
     ), is_published=True
-    ).order_by('id')
+    ).order_by('-id')
 
     return render(request, 'local/pages/search.html', {
         'title_search': f'user search for "{url_search}" |',
