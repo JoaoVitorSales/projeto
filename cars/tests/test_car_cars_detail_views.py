@@ -22,7 +22,6 @@ class RecipeCarsDetailsViewsTest(CarsViewTest):
         self.assertIn(needed_title, content)
 
     def test_cars_car_details_template_no_loads_cars_published(self):
-        car = self.make_car(is_published=False)
-        response = self.client.get(
-            reverse('car:cars', kwargs={'id': car.id}))
+        self.make_car(is_published=False)
+        response = self.client.get(reverse('car:cars', kwargs={'id': 12}))
         self.assertEqual(404, response.status_code)
