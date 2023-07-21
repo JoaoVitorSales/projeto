@@ -1,13 +1,30 @@
 from django.http import Http404
-from django.shortcuts import get_list_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 from .models import Cars
+from django.core.paginator import Paginator
 from django.db.models import Q
+from utils.pagination import make_pagination_range
 
 
 def home(request):
     car = Cars.objects.filter(is_published=True).order_by('-id')
+
+    try:
+        current_page = int(request.GET.get('page', 1))
+    except ValueError:
+        current_page = 1
+
+    paginator = Paginator(car, 12)
+    page_obj = paginator.get_page(current_page)
+
+    pagination_range = make_pagination_range(
+        paginator.page_range,
+        4,
+        current_page
+    )
     return render(request, 'local/pages/home.html', context={
-        'cars': car,
+        'cars': page_obj,
+        'pagination_range': pagination_range
     })
 
 
@@ -21,11 +38,10 @@ def Shop(request, shop_id):
 
 
 def Cars_detail(request, id):
-    car = Cars.objects.filter(
-        pk=id, is_published=True).order_by('-id').first()
+    carro = get_object_or_404(Cars, pk=id, is_published=True)
 
-    return render(request, 'local/pages/cars_view.html', context={
-        'cars': car,
+    return render(request, 'local/pages/cars-view.html', context={
+        'cars': carro,
         'is_detail_page': True,
     })
 
