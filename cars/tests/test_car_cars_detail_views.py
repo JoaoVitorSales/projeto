@@ -1,4 +1,3 @@
-from unittest import skip
 from django.urls import reverse, resolve
 from cars import views
 from .test_cars_base import CarsViewTest
@@ -23,5 +22,5 @@ class RecipeCarsDetailsViewsTest(CarsViewTest):
 
     def test_cars_car_details_template_no_loads_cars_published(self):
         self.make_car(is_published=False)
-        response = self.client.get(reverse('car:cars', kwargs={'id': 12}))
+        response = self.client.get(reverse('car:cars', kwargs={'id': 1}))
         self.assertEqual(404, response.status_code)

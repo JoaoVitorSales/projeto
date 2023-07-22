@@ -1,14 +1,16 @@
+import os
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from .models import Cars
 from django.db.models import Q
 from utils.pagination import make_pagination
 
+PER_PAGE = os.environ.get('PER_PAGE', 6)
+
 
 def home(request):
     car = Cars.objects.filter(is_published=True).order_by('-id')
-
-    page_obj, pagination_range = make_pagination(request, car, 2)
+    page_obj, pagination_range = make_pagination(request, car, PER_PAGE)
 
     return render(request, 'local/pages/home.html', context={
         'cars': page_obj,
@@ -20,7 +22,7 @@ def Shop(request, shop_id):
     car = get_list_or_404(Cars.objects.filter(
         shop__id=shop_id, is_published=True).order_by('-id'))
 
-    page_obj, pagination_range = make_pagination(request, car, 4)
+    page_obj, pagination_range = make_pagination(request, car, PER_PAGE)
 
     return render(request, 'local/pages/shop.html', context={
         'cars': page_obj,
@@ -50,7 +52,7 @@ def search(request):
     ), is_published=True
     ).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, cars, 4)
+    page_obj, pagination_range = make_pagination(request, cars, PER_PAGE)
 
     return render(request, 'local/pages/search.html', {
         'title_search': f'user search for "{url_search}" |',
