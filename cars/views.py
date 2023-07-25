@@ -35,7 +35,7 @@ def Cars_detail(request, id):
     carro = get_object_or_404(Cars, pk=id, is_published=True)
 
     return render(request, 'local/pages/cars-view.html', context={
-        'cars': carro,
+        'car': carro,
         'is_detail_page': True,
     })
 
