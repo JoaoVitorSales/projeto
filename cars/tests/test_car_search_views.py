@@ -16,6 +16,10 @@ class RecipeSearchTest(CarsViewTest):
         response = self.client.get('car:search')
         self.assertEqual(404, response.status_code)
 
+    def test_car_search_is_url_search(self):
+        response = self.client.get(reverse('car:search') + '?a=teste')
+        self.assertEqual(404, response.status_code)
+
     def test_car_search_was_charged_on_title_and_escaped(self):
         response = self.client.get(reverse('car:search') + '?q=teste')
         self.assertIn(

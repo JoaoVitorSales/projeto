@@ -4,29 +4,9 @@
     <div class='main-content center container'>
         <h1>Register</h1>
     </div>
-    <div class='main-content container'>
-        <form action="{% url 'authors:create' %}" method="POST">
-            {% csrf_token %}
-            <div class="form-content form-content-grid">
-                {% for fields in forms %}
-                    <div class="form-group">
-                        <label for="{{fields.id_for_label}}">{{fields.label}}</label>
-                        {{fields}}
 
-                        {% if fields.help_text %}
-                            <p class="help-text">{{fields.help_text}}</p>
-                        {% endif %}
-
-                        {{fields.errors}}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="form-content form-content-grid">
-                <div class="form-group">
-                  <button type="submit">Send</button>
-                </div>
-        </form>
-    </div>
+    {% include 'Global/partials/message.html' %}
+    {% include 'Global/partials/form.html' %}
 
 
 {% endblock content %}

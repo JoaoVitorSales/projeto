@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-    {% include 'local/partials/header.html' %}
+    {% include 'Global/partials/header.html' %}
     <title>{% block title %}{% endblock title %}</title>
 </head>    
 <body>
-    {% include 'local/partials/head.html' %}
-    {% include 'local/partials/search.html' %}
+    {% include 'Global/partials/head.html' %}
+    {% include 'Global/partials/search.html' %}
     <main class="main-contant-container">
         {% block content%}{% endblock  %}
-        {% include 'local/partials/pagination.html'%}
+        {% include 'Global/partials/pagination.html'%}
     </main>
-    {% include  'local/partials/footer.html' %}
+    {% include  'Global/partials/footer.html' %}
 
 
 </body>

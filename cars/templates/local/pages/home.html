@@ -1,7 +1,7 @@
 {% extends 'Global/base.html' %}
 {% block title %}HOME{% endblock title %}
 {% block content%}
-        {% include 'local/partials/message.html' %}
+        {% include 'Global/partials/message.html' %}
         <div class="main-contant main-contant-list container">
            {% for car in cars %}
                 {% include 'local/partials/cars.html' %}
