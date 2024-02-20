@@ -1,15 +1,19 @@
 from django.http import Http404
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
-from authors.forms import RegisterModel
+from .forms import RegisterForm, LoginForm
 
 
 def authors_register(request):
     request_form_data = request.session.get('register_form_data', None)
-    form = RegisterModel(request_form_data)
+    form = RegisterForm(request_form_data)
     return render(request, 'authors/pages/authors_register.html', context={
         'forms': form,
+        'form_action': reverse('authors:create')
     })
 
 
@@ -19,7 +23,7 @@ def authors_create(request):
 
     POST = request.POST
     request.session['register_form_data'] = POST
-    form = RegisterModel(POST)
+    form = RegisterForm(POST)
 
     if form.is_valid():
         user = form.save(commit=False)
@@ -28,4 +32,48 @@ def authors_create(request):
         messages.success(request, "your user has been created")
         del (request.session['register_form_data'])
 
-    return redirect('authors:register')
+    return redirect('authors:login')
+
+
+def authors_login(request):
+    form = LoginForm()
+    return render(request, 'authors/pages/authors_login.html', context={
+        'forms': form,
+        'form_action': reverse('authors:validation')
+    })
+
+
+def authors_login_validation(request):
+    if not request.POST:
+        raise Http404()
+
+    form = LoginForm(request.POST)
+
+    if form.is_valid():
+        authenticated_user = authenticate(
+            username=form.cleaned_data.get('username', ''),
+            password=form.cleaned_data.get('password', ''),
+        )
+
+        if authenticated_user is not None:
+            messages.success(request, 'you are logged in')
+            login(request, authenticated_user)
+            return redirect('car:home')
+        else:
+            messages.error(request, 'invalidation credentials')
+            return redirect('authors:login')
+    else:
+        messages.error(request, 'invalidation Username or Password')
+        return redirect('authors:login')
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def authors_logout(request):
+    if not request.POST:
+        return redirect(reverse('authors:login'))
+
+    if request.POST.get('username') != request.user.username:
+        return redirect(reverse('authors:login'))
+
+    logout(request)
+    return redirect(reverse('authors:login'))

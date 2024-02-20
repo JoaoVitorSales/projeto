@@ -1,7 +1,7 @@
 from django.urls import reverse
 from parameterized import parameterized
 from unittest import TestCase, skip
-from authors.forms import RegisterModel
+from authors.forms import RegisterForm
 from django.test import TestCase as DjangoTestCase
 
 
@@ -16,7 +16,7 @@ class TestRegisterAuto(TestCase):
     ]
     )
     def test_placeholder_of_field_are_correct(self, field, placeholder):
-        form = RegisterModel()
+        form = RegisterForm()
         current_placeholder = form[field].field.widget.attrs['placeholder']
         self.assertEqual(placeholder, current_placeholder)
 
@@ -25,7 +25,7 @@ class TestRegisterAuto(TestCase):
     ]
     )
     def test_label_of_fields_is_correct(self, field, placeholder):
-        form = RegisterModel()
+        form = RegisterForm()
         current_placeholder = form[field].field.label
         self.assertEqual(placeholder, current_placeholder)
 
