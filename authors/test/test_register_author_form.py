@@ -1,6 +1,6 @@
 from django.urls import reverse
 from parameterized import parameterized
-from unittest import TestCase, skip
+from unittest import TestCase
 from authors.forms import RegisterForm
 from django.test import TestCase as DjangoTestCase
 
@@ -34,10 +34,10 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     def setUp(self, *args, **kwargs):
         self.form_data = {'username': 'user',
                           'email': 'email@edasa.com',
-                          'first_name': 'wesler',
-                          'last_name': 'cabrito',
-                          'password': '1fdgg',
-                          'password2': '1fdgg'}
+                          'first_name': 'wesley',
+                          'last_name': 'cabrini',
+                          'password': '1fadge',
+                          'password2': '1foggy'}
         return super().setUp(*args, **kwargs)
 
     @parameterized.expand([
@@ -55,7 +55,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         url = reverse('authors:create')
         response = self.client.post(url, data=self.form_data, follow=True)
 
-        self.assertIn(msg, response.content.decode())
+        self.assertIn(msg, response.content.decode('utf-8'))
         self.assertIn(msg, response.context['forms'].errors.get(field))
 
     def test_filed_username_are_more_than_150_letters(self):
@@ -63,7 +63,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         url = reverse('authors:create')
         response = self.client.post(url, data=self.form_data, follow=True)
 
-        msg = ('Username must have less than 150 characters')
+        msg = 'Username must have less than 150 characters'
 
         self.assertIn(msg, response.context['forms'].errors.get('username'))
 
@@ -107,7 +107,6 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         response = self.client.get(url, data=self.form_data, follow=True)
         self.assertEqual(404, response.status_code)
 
-    @skip
     def test_email_is_unique(self):
         url = reverse('authors:create')
 
@@ -115,7 +114,7 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         response = self.client.post(url, data=self.form_data, follow=True)
 
         msg = 'User e-mail is already in use'
-        self.assertIn(msg, response.content.decode('utf-8'))
+        self.assertIn(msg, response.context['forms'].errors.get('email'))
 
     def test_author_created_can_login(self):
         url = reverse('authors:create')

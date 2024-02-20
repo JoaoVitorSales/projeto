@@ -31,8 +31,9 @@ def authors_create(request):
         user.save()
         messages.success(request, "your user has been created")
         del (request.session['register_form_data'])
+        return redirect(reverse('authors:login'))
 
-    return redirect('authors:login')
+    return redirect('authors:register')
 
 
 def authors_login(request):
