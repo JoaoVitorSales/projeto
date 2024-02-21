@@ -38,9 +38,7 @@ class RecipeHomeViewsTest(CarsViewTest):
         self.assertIn('NO CARS FOUND', response.content.decode('utf-8'))
 
     def test_invalid_page_query_uses_page(self):
-        for i in range(8):
-            kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
-            self.make_car(**kwargs)
+        self.make_car_in_the_batch(10)
 
         with patch('cars.views.PER_PAGE', new=3):
             response = self.client.get(reverse('car:home') + '?page=1A')

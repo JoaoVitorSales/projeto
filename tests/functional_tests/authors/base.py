@@ -1,10 +1,9 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from utils.browser import make_browser_chrome
-from cars.tests.test_cars_base import CarsMixing
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 
 
-class CarsBaseTesting(StaticLiveServerTestCase, CarsMixing):
+class AuthorsBaseTest(StaticLiveServerTestCase):
     def setUp(self) -> None:
         self.browser = make_browser_chrome()
         return super().setUp()
@@ -13,5 +12,5 @@ class CarsBaseTesting(StaticLiveServerTestCase, CarsMixing):
         self.browser.quit()
         return super().tearDown()
     
-    def sleep(self, seconds=6):
-        time.sleep(seconds)
+    def sleep(self, qt=8):
+        time.sleep(qt)

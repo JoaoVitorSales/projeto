@@ -2,11 +2,7 @@ from django.test import TestCase
 from cars.models import Cars, Shop, User
 
 
-class CarsViewTest(TestCase):
-    def setUp(self) -> None:
-
-        return super().setUp()
-
+class CarsMixing:
     def make_shop(self, name='shop'):
         return Shop.objects.create(name=name)
 
@@ -44,3 +40,18 @@ class CarsViewTest(TestCase):
                                    value_unit=value_unit,
                                    description=description,
                                    is_published=is_published)
+    
+    def make_car_in_the_batch(self, qtd=8):
+        cars = []
+        for i in range(qtd):
+            kwargs = {'title': f'recipe title{i}', 'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
+            car = self.make_car(**kwargs)
+            cars.append(car)
+        return cars  
+
+
+class CarsViewTest(TestCase, CarsMixing):
+    def setUp(self) -> None:
+        return super().setUp()
+
+    
