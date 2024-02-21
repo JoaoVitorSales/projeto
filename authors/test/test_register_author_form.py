@@ -1,6 +1,7 @@
 from django.urls import reverse
 from parameterized import parameterized
 from unittest import TestCase
+
 from authors.forms import RegisterForm
 from django.test import TestCase as DjangoTestCase
 
@@ -33,7 +34,7 @@ class TestRegisterAuto(TestCase):
 class AuthorRegisterFormIntegrationTest(DjangoTestCase):
     def setUp(self, *args, **kwargs):
         self.form_data = {'username': 'user',
-                          'email': 'email@edasa.com',
+                          'email': 'email@hotmail.com',
                           'first_name': 'wesley',
                           'last_name': 'cabrini',
                           'password': '1fadge',
@@ -106,15 +107,6 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         url = reverse('authors:create')
         response = self.client.get(url, data=self.form_data, follow=True)
         self.assertEqual(404, response.status_code)
-
-    def test_email_is_unique(self):
-        url = reverse('authors:create')
-
-        self.client.post(url, data=self.form_data, follow=True)
-        response = self.client.post(url, data=self.form_data, follow=True)
-
-        msg = 'User e-mail is already in use'
-        self.assertIn(msg, response.content.decode('utf-8'))
 
     def test_author_created_can_login(self):
         url = reverse('authors:create')

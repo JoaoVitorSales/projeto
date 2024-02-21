@@ -1,5 +1,4 @@
 import os
-from time import sleep
 from pathlib import Path
 
 from selenium import webdriver
@@ -23,10 +22,3 @@ def make_browser_chrome(*options):
     chrome_service = Service(executable_path=CHORMEDRIVER_PATH)
     browser = webdriver.Chrome(service=chrome_service, options=chrome_options)
     return browser
-
-
-if __name__ == '__main__':
-    browser = make_browser_chrome()
-    browser.get('https://www.google.com')
-    sleep(5)
-    browser.quit()
