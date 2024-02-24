@@ -1,0 +1,28 @@
+{% extends 'global/base.html' %}
+{% block title %} Dashbord {% endblock title %}
+{% block content %}
+    <div class='main-content center container'>
+        <h1>Dashboard</h1>
+        {% include 'authors/partials/authors_login.html' %}
+    </div>
+
+
+    <div class='authors-dashboard-container'>
+        <h3>Your Recipes</h3>
+        <ul>
+            {% for car in cars %}
+                <li>
+                    <a href='{% url "authors:dashboard_edit" car.id %}'>{{car.title}}</a>
+                </li>
+            {%empty%}
+                <li>
+                    <p>this author has don't registered any car</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% include 'Global/partials/message.html' %}
+
+
+{% endblock content %}

@@ -20,5 +20,5 @@ def make_browser_chrome(*options):
         chrome_options.add_argument('--headless')
 
     chrome_service = Service(executable_path=CHORMEDRIVER_PATH)
-    browser = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
     return browser

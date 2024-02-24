@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from cars.models import Cars
 from django.urls import reverse
 
 from .forms import RegisterForm, LoginForm
@@ -59,7 +60,7 @@ def authors_login_validation(request):
         if authenticated_user is not None:
             messages.success(request, 'you are logged in')
             login(request, authenticated_user)
-            return redirect('car:home')
+            return redirect('authors:dashboard')
         else:
             messages.error(request, 'invalidation credentials')
             return redirect('authors:login')
@@ -71,10 +72,29 @@ def authors_login_validation(request):
 @login_required(login_url='authors:login', redirect_field_name='next')
 def authors_logout(request):
     if not request.POST:
+        messages.error(request, "Invalid logout request")
         return redirect(reverse('authors:login'))
 
     if request.POST.get('username') != request.user.username:
+        messages.error(request, "Invalid logout user")
         return redirect(reverse('authors:login'))
 
     logout(request)
+    messages.success(request, "logout user successfuly")
     return redirect(reverse('authors:login'))
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def authors_dashboard(request):
+    cars = Cars.objects.filter(is_published=False, author=request.user)
+    return render(request, 'authors/pages/authors_dashboard.html', context={"cars": cars})
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def authors_dashboard_edit(request, id):
+    cars = Cars.objects.filter(is_published=False, author=request.user, pk=id)
+
+    if not request.POST:
+        raise Http404()
+
+    return render(request, 'authors/pages/authors_dashboard_edit.html', context={"cars": cars})

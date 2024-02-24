@@ -1,14 +1,17 @@
 {% extends 'global/base.html' %}
-{% block title %} Login {% endblock title %}
+{% block title %} Dashbord {% endblock title %}
 {% block content %}
     <div class='main-content center container'>
-        <h1>Login</h1>
+        <h1>Dashboard</h1>
         {% include 'authors/partials/authors_login.html' %}
     </div>
 
+
+    <div class='authors-dashboard-container'>
+        <h3>Your Recipes</h3>
+    </div>
+
     {% include 'Global/partials/message.html' %}
-    {%if not user.is_authenticated%}
-        {% include 'Global/partials/form.html' %}
-    {%endif%}
+
 
 {% endblock content %}
