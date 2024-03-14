@@ -2,16 +2,13 @@
 {% block title %} Dashbord {% endblock title %}
 {% block content %}
     <div class='main-content center container'>
-        <h1>Dashboard</h1>
+        <h1>Dashboard Cars</h1>
+        {% include 'Global/partials/message.html' %}
         {% include 'authors/partials/authors_login.html' %}
+    
+        <div class='left'>
+            {% include 'Global/partials/form.html' %}
+        </div>
     </div>
-
-
-    <div class='authors-dashboard-container'>
-        <h3>Your Recipes</h3>
-    </div>
-
-    {% include 'Global/partials/message.html' %}
-
 
 {% endblock content %}

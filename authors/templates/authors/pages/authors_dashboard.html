@@ -4,6 +4,7 @@
     <div class='main-content center container'>
         <h1>Dashboard</h1>
         {% include 'authors/partials/authors_login.html' %}
+        {% include 'global/partials/message.html' %}
     </div>
 
 
@@ -12,7 +13,15 @@
         <ul>
             {% for car in cars %}
                 <li>
-                    <a href='{% url "authors:dashboard_edit" car.id %}'>{{car.title}}</a>
+                    <a href="{% url 'authors:dashboard_edit' car.id %}">{{ car.title }}</a> - 
+                    <form 
+                    class="inline-form form-delete" 
+                    action="{% url 'authors:dashboard_delete' car.id %}" 
+                    method='POST'
+                    >
+                      {% csrf_token %}
+                      <button class="plaintext-button" type="submit">❌</button>
+                    </form>
                 </li>
             {%empty%}
                 <li>
@@ -21,8 +30,5 @@
             {% endfor %}
         </ul>
     </div>
-
-    {% include 'Global/partials/message.html' %}
-
 
 {% endblock content %}

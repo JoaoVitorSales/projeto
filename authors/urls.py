@@ -1,6 +1,6 @@
 from django.urls import path
 
-from authors import views
+from . import views
 
 app_name = "authors"
 
@@ -11,5 +11,7 @@ urlpatterns = [
     path("validation/", views.authors_login_validation, name="validation"),
     path("logout/", views.authors_logout, name="logout"),
     path("dashboard/", views.authors_dashboard, name="dashboard"),
-    path("dashboard/<int:id>/edit", views.authors_dashboard_edit, name="dashboard_edit")
+    path("dashboard/create", views.DashboardCars.as_view(), name="dashboard_create"),
+    path("dashboard/<int:id>/edit", views.DashboardCars.as_view(), name="dashboard_edit"),
+    path("dashboard/<int:id>/delete", views.DashboardDeleteCars.as_view(), name="dashboard_delete"),
 ]

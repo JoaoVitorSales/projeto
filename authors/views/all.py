@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from cars.models import Cars
 from django.urls import reverse
 
-from .forms import RegisterForm, LoginForm
+from authors.forms import RegisterForm, LoginForm
 
 
 def authors_register(request):
@@ -88,13 +88,3 @@ def authors_logout(request):
 def authors_dashboard(request):
     cars = Cars.objects.filter(is_published=False, author=request.user)
     return render(request, 'authors/pages/authors_dashboard.html', context={"cars": cars})
-
-
-@login_required(login_url='authors:login', redirect_field_name='next')
-def authors_dashboard_edit(request, id):
-    cars = Cars.objects.filter(is_published=False, author=request.user, pk=id)
-
-    if not request.POST:
-        raise Http404()
-
-    return render(request, 'authors/pages/authors_dashboard_edit.html', context={"cars": cars})

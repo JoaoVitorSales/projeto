@@ -1,13 +1,13 @@
 <div class="cars cars-list">
     {% if car.cover %}
         <div class="cars-informations">
-            <a href="{% url 'car:cars' car.id%}">
+            <a href="{{ recipe.get_absolute_url }}">
                 <img src="{{car.cover.url}}" alt="temp">
             </a>
         </div>
     {% endif %}
         <div class="cars-title-container">
-            <a href="{% url 'car:cars' car.id %}">
+            <a href="{{ recipe.get_absolute_url }}">
                 <h1 align="center">{{ car.title }}</h1>
             </a>    
         </div>
