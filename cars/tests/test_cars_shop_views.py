@@ -7,7 +7,7 @@ class RecipeShopViewsTest(CarsViewTest):
 
     def test_cars_shop_view_is_valid(self):
         view = resolve(reverse('car:Shop', kwargs={'shop_id': 1}))
-        self.assertIs(view.func, views.Shop)
+        self.assertIs(view.func.view_class, views.CarsShopList)
 
     def test_cars_shop_return_404_error_if_not_correct(self):
         response = self.client.get(reverse('car:Shop', kwargs={'shop_id': 1}))

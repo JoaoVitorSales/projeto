@@ -8,7 +8,7 @@ class RecipeHomeViewsTest(CarsViewTest):
 
     def test_cars_home_view_is_valid(self):
         view = resolve(reverse('car:home'))
-        self.assertIs(view.func, views.home)
+        self.assertIs(view.func.view_class, views.CarsHomePage)
 
     def test_cars_home_views_returns_status_code_is_ok(self):
         response = self.client.get(reverse('car:home'))

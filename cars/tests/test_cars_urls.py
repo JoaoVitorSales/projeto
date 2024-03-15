@@ -12,7 +12,7 @@ class RecipeURLsTest(TestCase):
         self.assertEqual(shopUrl, '/cars/shop/1/')
 
     def test_cars_car_details_url_is_correct(self):
-        cars_detailUrl = reverse('car:cars', kwargs={'id': 1})
+        cars_detailUrl = reverse('car:cars', kwargs={'pk': 1})
         self.assertEqual(cars_detailUrl, '/cars/1/')
 
     def test_car_search_url_is_correct(self):

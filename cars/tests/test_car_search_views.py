@@ -6,7 +6,7 @@ from .test_cars_base import CarsViewTest
 class RecipeSearchTest(CarsViewTest):
     def test_cars_search_view_is_valid(self):
         response = resolve(reverse('car:search'))
-        self.assertIs(response.func, views.search)
+        self.assertIs(response.func.view_class, views.CarsSearchList)
 
     def test_cars_search_loads_template_is_correct(self):
         response = self.client.get(reverse('car:search') + '?q=teste')
@@ -23,7 +23,7 @@ class RecipeSearchTest(CarsViewTest):
     def test_car_search_was_charged_on_title_and_escaped(self):
         response = self.client.get(reverse('car:search') + '?q=teste')
         self.assertIn(
-            'user search for &quot;teste&quot; |', response.content.decode('utf-8'))  # noqa
+            'Search for &quot;teste&quot; |', response.content.decode('utf-8'))  # noqa
 
     def test_car_search_title_is_correct(self):
         title1 = 'this is Flamengo'
