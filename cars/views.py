@@ -70,7 +70,7 @@ class CarsShopList(ListView):
             raise Http404()
         return car
 
-
+ 
 class CarsDetailList(DetailView):
     model = Cars
     context_object_name = "car"
