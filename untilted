@@ -1,0 +1,75 @@
+###############################################################################
+# Replace
+# cars_store to the name of the gunicorn file you want
+# joao0 to your user name
+# app_repo to the folder name of your project
+# project to the folder name where you find a file called wsgi.py
+#
+###############################################################################
+# Criando o arquivo cars_store.socket
+sudo nano /etc/systemd/system/cars_store.socket
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=gunicorn blog socket
+
+[Socket]
+ListenStream=/run/cars_store.socket
+
+[Install]
+WantedBy=sockets.target
+
+###############################################################################
+# Criando o arquivo cars_store.service
+sudo nano /etc/systemd/system/cars_store.service
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=Gunicorn daemon (You can change if you want)
+Requires=cars_store.socket
+After=network.target
+
+[Service]
+User=joao0
+Group=www-data
+Restart=on-failure
+EnvironmentFile=/home/joao0/app_repo/.env
+WorkingDirectory=/home/joao0/app_repo
+# --error-logfile --enable-stdio-inheritance --log-level and --capture-output
+# are all for debugging purposes.
+ExecStart=/home/joao0/app_repo/venv/bin/gunicorn \
+          --error-logfile /home/joao0/app_repo/gunicorn-error-log \
+          --enable-stdio-inheritance \
+          --log-level "debug" \
+          --capture-output \
+          --access-logfile - \
+          --workers 6 \
+          --bind unix:/run/cars_store.socket \
+          project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+###############################################################################
+# Ativando
+sudo systemctl start cars_store.socket
+sudo systemctl enable cars_store.socket
+
+# Checando
+sudo systemctl status cars_store.socket
+curl --unix-socket /run/cars_store.socket localhost
+sudo systemctl status cars_store
+
+# Restarting
+sudo systemctl restart cars_store.service
+sudo systemctl restart cars_store.socket
+sudo systemctl restart cars_store
+
+# After changing something
+sudo systemctl daemon-reload
+
+# Debugging
+sudo journalctl -u cars_store.service
+sudo journalctl -u cars_store.socket
