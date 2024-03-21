@@ -1,6 +1,8 @@
 import os
 
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.http.response import HttpResponse
+from django.forms.models import model_to_dict
 from cars.models import Cars
 from django.views.generic import DetailView, ListView
 from django.db.models import Q
@@ -19,6 +21,7 @@ class CarsHomePage(ListView):
     def get_queryset(self, *args, **kwargs):
         car = super().get_queryset(*args, **kwargs)
         car = car.filter(is_published=True)
+        car = car.select_related('shop', 'author')
         return car
     
     def get_context_data(self, *args, **kwargs):
@@ -85,3 +88,33 @@ class CarsDetailList(DetailView):
         context = super().get_context_data(*args, **kwargs)
         context.update({'is_detail_page': True})
         return context
+    
+
+class CarsHomePageApi(CarsHomePage):
+    template_name = 'local/pages/home.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        cars = self.get_context_data()['cars']
+        cars_list = cars.object_list.values()
+        
+        return JsonResponse(
+            list(cars_list),
+            safe=False
+        )
+    
+
+class CarsDetailListApi(CarsDetailList):
+    def render_to_response(self, context, **response_kwargs):
+        cars = self.get_context_data()['car']
+        cars_list = model_to_dict(cars)
+
+        if cars_list.get('cover'):
+            cars_list['cover'] = cars_list['cover'].url[1:] 
+        else:
+            cars_list['cover'] = ""
+
+        del cars_list['is_published']
+        return JsonResponse(
+            cars_list,
+            safe=False
+        )

@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     # My Apps
     'cars',
     'authors',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,18 +80,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#       'ENGINE': os.environ.get('DATABASE_ENGINE'),
+#        'NAME': os.environ.get('DATABASE_NAME'),
+#        'USER': os.environ.get('DATABASE_USER'),
+#        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#        'HOST': os.environ.get('DATABASE_HOST'),
+#        'PORT': os.environ.get('DATABASE_PORT'),
+#    }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASE_ENGINE'),
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -147,3 +154,8 @@ MESSAGE_TAGS = {
     constants.SUCCESS: 'message-success',
     constants.WARNING: 'message-warning',
 }
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
