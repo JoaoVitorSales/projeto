@@ -1,0 +1,17 @@
+[0;1;32m●[0m cars_store.service - Gunicorn daemon (You can change if you want)
+     Loaded: loaded (/etc/systemd/system/cars_store.service; disabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Fri 2024-03-15 21:00:34 UTC; 11min ago
+TriggeredBy: [0;1;32m●[0m cars_store.socket
+   Main PID: 25545 (gunicorn)
+      Tasks: 7 (limit: 1134)
+     Memory: 179.0M
+     CGroup: /system.slice/cars_store.service
+             ├─25545 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             ├─25546 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             ├─25547 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             ├─25548 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             ├─25549 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             ├─25550 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+             └─25551 /home/joao0/app_repo/venv/bin/python3.9 /home/joao0/app_repo/venv/bin/gunicorn --error-logfile /home/joao0/app_repo/gunicorn-error-log --enable-stdio-inheritance --log-level debug --capture-output --access-logfile - --workers 6 --bind unix:/run/cars_store.socket project.wsgi:application
+
+Mar 15 21:00:34 loja-cars systemd[1]: Started Gunicorn daemon (You can change if you want).
