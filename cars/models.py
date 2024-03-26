@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
+from django.db.models import Value, F
+from django.db.models.functions import Concat
 
 
 class Shop(models.Model):
@@ -11,7 +13,13 @@ class Shop(models.Model):
         return self.name
 
 
+class Object(models.Manager):
+    def fullname(self):
+        return Cars.objects.all().annotate(cars_value=Concat(F('author__first_name'), Value(' '), F('author__last_name')))
+
+
 class Cars(models.Model):
+    objects = Object()
     title = models.CharField(max_length=30)
     details = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)

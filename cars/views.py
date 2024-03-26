@@ -1,14 +1,28 @@
 import os
 
 from django.http import Http404, JsonResponse
-from django.http.response import HttpResponse
 from django.forms.models import model_to_dict
+from django.shortcuts import render
 from cars.models import Cars
+from django.db.models.aggregates import Count
 from django.views.generic import DetailView, ListView
-from django.db.models import Q
+from django.db.models import Q, Value, F
+from django.db.models.functions import Concat
 from utils.pagination import make_pagination
 
 PER_PAGE = os.environ.get('PER_PAGE', 6)
+
+
+def theory(request, *args, **kwargs):
+    cars = Cars.objects.fullname()
+    numbers_cars = Cars.objects.aggregate(Number=Count('id'))
+
+    context = {
+        'cars': cars,
+        'numbers_of_cars': numbers_cars['Number'],
+    }
+
+    return render(request, 'local/pages/theory.html', context=context)
 
 
 class CarsHomePage(ListView):
