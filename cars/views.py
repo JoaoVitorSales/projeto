@@ -6,9 +6,10 @@ from django.shortcuts import render
 from cars.models import Cars
 from django.db.models.aggregates import Count
 from django.views.generic import DetailView, ListView
-from django.db.models import Q, Value, F
+from django.db.models import Q
 from django.db.models.functions import Concat
 from utils.pagination import make_pagination
+from tag.models import Tag
 
 PER_PAGE = os.environ.get('PER_PAGE', 6)
 
@@ -36,6 +37,7 @@ class CarsHomePage(ListView):
         car = super().get_queryset(*args, **kwargs)
         car = car.filter(is_published=True)
         car = car.select_related('shop', 'author')
+        car = car.prefetch_related('tags')
         return car
     
     def get_context_data(self, *args, **kwargs):
@@ -132,3 +134,29 @@ class CarsDetailListApi(CarsDetailList):
             cars_list,
             safe=False
         )
+
+
+class CarsListViewTag(CarsHomePage):
+    template_name = 'local/pages/tag.html'
+
+    def get_queryset(self, *args, **kwargs):
+        car = super().get_queryset(*args, **kwargs)
+        car = car.filter(tags__slug=self.kwargs.get('slug', ''))
+        return car
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        page_title = Tag.objects.filter(
+            slug=self.kwargs.get('slug', '')
+        ).first()
+
+        if not page_title:
+            page_title = 'No Cars found'
+
+        page_title = f'{page_title} - Tag |'
+
+        ctx.update({
+            'page_title': page_title,
+        })
+
+        return ctx

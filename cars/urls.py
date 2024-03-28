@@ -12,4 +12,5 @@ urlpatterns = [
     path('cars/api/v1/', views.CarsHomePageApi.as_view(), name="home_api_v1"),
     path('cars/api/v1/<int:pk>', views.CarsDetailListApi.as_view(), name="cars_detail_api_v1"),
     path('cars/theory', views.theory, name="theory"),
+    path('cars/tag/<slug:slug>/', views.CarsListViewTag.as_view(), name="tag"),
 ]

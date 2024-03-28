@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.db.models import Value, F
 from django.db.models.functions import Concat
+from tag.models import Tag
 
 
 class Shop(models.Model):
@@ -38,6 +39,8 @@ class Cars(models.Model):
         User, on_delete=models.SET_NULL, null=True
     )
 
+    tags = models.ManyToManyField(Tag)
+    
     def __str__(self):
         return self.title
 

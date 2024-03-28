@@ -400,6 +400,10 @@ margin: 1rem 0;
 .errorlist {
     color: var(--color-error-dark);
 }
+
+.preparation-steps {
+    padding: var(--spacing-gutter-medium);
+}
   
 .form-content input,
 .form-content textarea,
