@@ -14,6 +14,8 @@ from pathlib import Path
 from django.contrib.messages import constants
 import os
 
+from utils.enviroments import get_env_variable, parse_comma_sep_str_to_list
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +30,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "INSECURE")  # noqa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('DEBUG') == '1' else False
 
-ALLOWED_HOSTS: list[str] = ['*']
+ALLOWED_HOSTS: list[str] = parse_comma_sep_str_to_list(
+    get_env_variable('ALLOWED_HOST')
+)
+CSRF_TRUSTED_ORIGINS: list[str] = parse_comma_sep_str_to_list(
+    get_env_variable('CSRF_TRUSTED_ORIGINS')
+)
 
 
 # Application definition
@@ -93,12 +100,6 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
