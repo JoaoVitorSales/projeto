@@ -1,11 +1,13 @@
 # flake8: noqa
-from .environment import *
-from .installed_apps import *
-from .middleware import *
-from .templates import *
+from .environment import * # isort:skip
+from .installed_apps import * # isort:skip
+from .middleware import * # isort:skip
+
+from .assets import *
 from .databases import *
-from .security import *
 from .i18n import *
-from .static import *
 from .messages import *
-from .debug_toolbar import *
+from .security import *
+from .templates import *
+
+from .debug_toolbar import * # isort:skip
