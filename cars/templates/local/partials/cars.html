@@ -14,8 +14,16 @@
     <div class="cars-company">
     {% if car.author is not None %}
         <span class="cars-company-item">
+            {% if car.author.profile %}
+                <a href="{% url 'authors:profile' car.author.profile.id %}">
+            {% endif %}
+
             <i class="fas fa-user"></i>
             {{ car.author.first_name }} {{ car.author.last_name }}
+
+            {% if car.author.profile %}
+                </a>
+            {% endif %}
         </span>
     {% endif %}
     <span class="cars-company-item">

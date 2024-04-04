@@ -14,4 +14,5 @@ urlpatterns = [
     path("dashboard/create", views.DashboardCars.as_view(), name="dashboard_create"),
     path("dashboard/<int:id>/edit", views.DashboardCars.as_view(), name="dashboard_edit"),
     path("dashboard/<int:id>/delete", views.DashboardDeleteCars.as_view(), name="dashboard_delete"),
+    path("profile/<int:id>", views.ProfileView.as_view(), name="profile"),
 ]

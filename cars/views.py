@@ -7,7 +7,6 @@ from cars.models import Cars
 from django.db.models.aggregates import Count
 from django.views.generic import DetailView, ListView
 from django.db.models import Q
-from django.db.models.functions import Concat
 from utils.pagination import make_pagination
 from tag.models import Tag
 
@@ -36,7 +35,7 @@ class CarsHomePage(ListView):
     def get_queryset(self, *args, **kwargs):
         car = super().get_queryset(*args, **kwargs)
         car = car.filter(is_published=True)
-        car = car.select_related('shop', 'author')
+        car = car.select_related('shop', 'author', 'author__profile')
         car = car.prefetch_related('tags')
         return car
     
