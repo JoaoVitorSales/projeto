@@ -2,13 +2,10 @@
     <div>
         Your are logged in with 
         {{ request.user.username }}. 
-        <a href="{% url 'authors:dashboard' %}">See your recipes</a>,
-        <a href="{% url 'authors:dashboard_create' %}">Create a recipe</a> or
+        <a href="{% url 'authors:dashboard' %}">See your cars</a>,
+        <a href="{% url 'authors:dashboard_create' %}">Create a car</a> or
         Please,
-        <form class="inline-form" action="{% url 'authors:logout' %}" method='POST'>
-            {% csrf_token %}
-            <input type="hidden" name="username" value="{{ request.user.username }}">
-            <button class="plaintext-button" type="submit">click here</button>
-        </form> to logout.
+        {% include "authors/partials/authors_logout.html" %}
+        <a href='#' class="authors-logout-link">Click Here </a>to logout.
     </div>
 {% endif %}

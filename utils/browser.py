@@ -19,6 +19,5 @@ def make_browser_chrome(*options):
     if os.environ.get('SELENIUM_HEADLESS') == '1':
         chrome_options.add_argument('--headless')
 
-    chrome_service = Service(executable_path=CHORMEDRIVER_PATH)
-    browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+    browser = webdriver.Chrome(options=chrome_options, service=Service(executable_path=CHORMEDRIVER_PATH))
     return browser

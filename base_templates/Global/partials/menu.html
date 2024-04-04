@@ -1,0 +1,26 @@
+<button class='button-show-menu button-show-menu-visible'>
+    <i class='fas fa-bars'></i>
+    <spam Class='hidden-text'>Show Menu</spam>
+</button>
+
+<div class='menu-container menu-hidden'>
+    <button class='button-close-menu button-close-menu-hidden'>
+        <i class='fas fa-times-circle'></i>
+        <spam Class='hidden-text'>Closed Menu</spam>
+    </button>
+
+    <div class="menu-content">
+        <nav class="menu-nav">
+            <a href=" {% url 'car:home' %} ">Home</a>    
+            {% if user.is_authenticated %}
+                <a href=" {% url 'authors:dashboard' %} ">Dashboard</a> 
+                <a href=" {% url 'authors:dashboard_create' %} ">Create a Car</a>
+                <a class="authors-logout-link" href=" {% url 'authors:logout' %} ">Logout</a>  
+                {% include 'authors/partials/authors_logout.html' %}
+            {% else %}
+                <a href=" {% url 'authors:login' %} ">Login</a>
+                <a href=" {% url 'authors:register' %} ">Register</a> 
+            {% endif %}
+        </nav>
+    </div>
+</div>
