@@ -24,10 +24,10 @@ def car_cover_delete(sender, instance, *args, **kwargs):
 def car_cover_save(sender, instance, *args, **kwargs):
     old_instance = Cars.objects.filter(pk = instance.pk).first()
 
-    new_instance = old_instance.cover != instance.cover
-
     if not old_instance:
         return
+
+    new_instance = old_instance.cover != instance.cover
 
     if new_instance:
         delete_cover(old_instance)
